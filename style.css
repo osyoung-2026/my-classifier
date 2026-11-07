@@ -186,3 +186,42 @@ button:disabled { opacity: .5; cursor: default; }
   .stat-v .big { font-size: 1.7rem; }
   .pair { grid-template-columns: 1fr; }
 }
+
+/* ---------- 사용 안내 ---------- */
+.guide { margin-bottom: 16px; }
+.guide h2 { margin: 0; font-size: 1.1rem; }
+.guide .small { margin: 2px 0 0; }
+.guide .lead { margin: 10px 0 12px; }
+.warn-strip {
+  margin: 0 0 14px; padding: 9px 12px; border-radius: 8px; font-size: .9rem; font-weight: 700;
+  background: var(--bad-bg); border: 1px solid var(--bad-line); color: var(--bad);
+}
+.guide-row { margin: 0 0 12px; }
+.guide-row[hidden] { display: none; }
+.guide-k { display: block; font-size: .8rem; font-weight: 700; color: var(--muted); margin-bottom: 6px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip {
+  display: inline-block; max-width: 100%; padding: 3px 12px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--soft); color: var(--fg); font-size: .88rem; font-weight: 600;
+}
+.chip.sos { color: var(--bad); border-color: var(--bad-line); background: var(--bad-bg); }
+.chip.hot { color: var(--high); border-color: var(--high-line); background: var(--high-bg); }
+.chip.low { color: var(--good); }
+button.chip.ex {
+  font: inherit; font-size: .88rem; font-weight: 500; text-align: left; border-radius: 12px;
+  background: var(--card); cursor: pointer; line-height: 1.4;
+}
+button.chip.ex:hover { background: var(--soft); }
+button.chip.ex:focus-visible, .btn-sm:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.btn-sm {
+  margin-top: 8px; padding: 7px 14px; border-radius: 10px; font-weight: 600; cursor: pointer;
+  border: 1px solid var(--accent); background: transparent; color: var(--accent);
+}
+.defs { margin-top: 4px; border-top: 1px solid var(--line); padding-top: 10px; }
+.defs summary { cursor: pointer; font-weight: 700; font-size: .92rem; }
+.defs summary:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.defs h3 { font-size: .9rem; margin: 14px 0 6px; }
+.defs .def { margin: 0 0 6px; font-size: .9rem; }
+.defs .rules { margin: 0; padding-left: 20px; font-size: .9rem; }
+.defs .rules li { margin-bottom: 4px; }
+.defs .small { margin: 6px 0 0; }

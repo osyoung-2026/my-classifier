@@ -147,6 +147,102 @@
     });
   }
 
+  // ---------- 사용 안내 (criteria.json · data/practice.json 에서만 읽는다) ----------
+  function chipFor(name, kind) {
+    var c = el("span", "chip", name);
+    if (kind === "cat" && name === safetyName()) c.className += " sos";
+    if (kind === "urg") {
+      var urgs = state.criteria.urgency.map(function (u) { return u.name; });
+      var i = urgs.indexOf(name);
+      if (urgs.length === 3) c.className += [" hot", "", " low"][i] || "";
+    }
+    return c;
+  }
+
+  function renderGuide() {
+    var cr = state.criteria;
+    $("guide-owner").textContent = cr.owner + " · 기준 version " + cr.version;
+
+    var cats = cr.categories.slice().sort(function (a, b) { return a.order - b.order; });
+    var catHost = $("cat-chips"), urgHost = $("urg-chips");
+    catHost.textContent = ""; urgHost.textContent = "";
+    cats.forEach(function (c) { catHost.appendChild(chipFor(c.name, "cat")); });
+    cr.urgency.forEach(function (u) { urgHost.appendChild(chipFor(u.name, "urg")); });
+
+    var defs = $("defs");
+    defs.textContent = "";
+    defs.appendChild(el("h3", null, "칸"));
+    cats.forEach(function (c) {
+      var p = el("p", "def");
+      p.appendChild(chipFor(c.name, "cat"));
+      p.appendChild(document.createTextNode(" " + (c.definition || "(따로 적은 정의 없음)")));
+      defs.appendChild(p);
+    });
+    if (cr.category_rule) defs.appendChild(el("p", "small", "칸 순서 기준: " + cr.category_rule));
+    if (cr.order_reason) defs.appendChild(el("p", "small", "순서의 이유: " + cr.order_reason));
+    defs.appendChild(el("h3", null, "긴급도"));
+    cr.urgency.forEach(function (u) {
+      var p = el("p", "def");
+      p.appendChild(chipFor(u.name, "urg"));
+      p.appendChild(document.createTextNode(" " + u.definition));
+      defs.appendChild(p);
+    });
+    if (cr.extra_rules && cr.extra_rules.length) {
+      defs.appendChild(el("h3", null, "추가 기준"));
+      var ul = el("ul", "rules");
+      cr.extra_rules.forEach(function (t) { ul.appendChild(el("li", null, t)); });
+      defs.appendChild(ul);
+    }
+  }
+
+  function fillQuestion(text) {
+    var q = $("q");
+    q.value = text;
+    q.focus();
+  }
+
+  // 예시 문장: data/practice.json 에서만. answer.json 은 쓰지 않는다.
+  // 이름 · 전화번호 · 학번이 가려질 문장(mask.js 가 찾는 문장)은 예시에서 뺀다. 경고 띠와 어긋나지 않게.
+  function setupExamples(items) {
+    if (!Array.isArray(items)) return;
+    items = items.filter(function (s) { return window.Mask.mask(s.text).found.length === 0; });
+    if (!items.length) return;
+    var cats = state.criteria.categories.slice().sort(function (a, b) { return a.order - b.order; });
+    var picks = [];
+    cats.forEach(function (c) {
+      if (picks.length >= 4) return;
+      var f = items.filter(function (s) { return s.category === c.name; })[0];
+      if (f) picks.push(f);
+    });
+    for (var i = 0; picks.length < 4 && i < items.length; i++) {
+      if (picks.indexOf(items[i]) === -1) picks.push(items[i]);
+    }
+    var host = $("example-chips");
+    host.textContent = "";
+    picks.forEach(function (s) {
+      var b = el("button", "chip ex", s.text);
+      b.type = "button";
+      b.addEventListener("click", function () { fillQuestion(s.text); });
+      host.appendChild(b);
+    });
+
+    var queue = [], last = null;
+    function next() {
+      if (!queue.length) {
+        queue = items.slice();
+        for (var k = queue.length - 1; k > 0; k--) {
+          var j = Math.floor(Math.random() * (k + 1));
+          var t = queue[k]; queue[k] = queue[j]; queue[j] = t;
+        }
+        if (queue.length > 1 && queue[queue.length - 1] === last) queue.unshift(queue.pop());
+      }
+      last = queue.pop();
+      return last;
+    }
+    $("example-btn").addEventListener("click", function () { fillQuestion(next().text); });
+    $("examples").hidden = false;
+  }
+
   // ---------- 채점 공통 ----------
   function pct(x, n) { return Math.round(x / n * 1000) / 10 + "%"; }
 
@@ -376,6 +472,8 @@
       state.criteria = r[0];
       state.kw = r[1];
       renderWords();
+      renderGuide();
+      loadJson("data/practice.json").then(setupExamples).catch(function () {});
     }).catch(function () {
       showStatus("기준 파일을 읽지 못했습니다. 파일을 직접 열지 말고, 이 폴더에서 'python -m http.server 8000' 을 실행한 뒤 http://localhost:8000 으로 열어 주세요.");
     });
