@@ -91,8 +91,16 @@
 
     if (notice) box.appendChild(el("p", "notice", notice));
     box.appendChild(row("판정 방식", source));
-    box.appendChild(row("칸", badge(res.category)));
-    box.appendChild(row("긴급도", badge(res.urgency)));
+    var pair = el("div", "pair");
+    var catBadge = badge(res.category);
+    if (res.category === safetyName()) catBadge.className += " sos";
+    var urgBadge = badge(res.urgency);
+    var urgs = state.criteria.urgency.map(function (u) { return u.name; });
+    var ui = urgs.indexOf(res.urgency);
+    if (urgs.length === 3 && ui !== -1) urgBadge.className += [" hot", " mid", " low"][ui];
+    pair.appendChild(row("칸", catBadge));
+    pair.appendChild(row("긴급도", urgBadge));
+    box.appendChild(pair);
     box.appendChild(row("이유", res.reason));
     box.hidden = false;
   }
@@ -162,13 +170,42 @@
     return window.Rules.classify(window.Mask.mask(a.text).masked, state.kw, state.criteria);
   }
 
+  // 큰 숫자 카드. s 가 null 이면 아직 안 잰 빈 카드.
+  function statCard(label, big, of, sub, cls) {
+    var c = el("div", "stat" + (cls ? " " + cls : ""));
+    c.appendChild(el("div", "stat-l", label));
+    var v = el("div", "stat-v");
+    v.appendChild(el("span", "big", big));
+    if (of) v.appendChild(el("span", "of", "/ " + of));
+    c.appendChild(v);
+    c.appendChild(el("div", "stat-s", sub));
+    return c;
+  }
+
+  function renderStats(hostId, s) {
+    var host = $(hostId);
+    host.textContent = "";
+    if (!s) {
+      ["칸 맞음", "긴급도 맞음", "둘 다 맞음", "안전긴급 놓친 수"].forEach(function (l) {
+        host.appendChild(statCard(l, "—", null, "아직 안 쟀음", "empty-v"));
+      });
+      return;
+    }
+    var n = s.n;
+    host.appendChild(statCard("칸 맞음", String(s.cat), n, pct(s.cat, n)));
+    host.appendChild(statCard("긴급도 맞음", String(s.urg), n, pct(s.urg, n)));
+    host.appendChild(statCard("둘 다 맞음", String(s.both), n, pct(s.both, n)));
+    host.appendChild(statCard("안전긴급 놓친 수", String(s.safetyMiss), null,
+      s.safetyMiss > 0 ? "놓친 문장 있음" : "놓친 문장 없음", s.safetyMiss > 0 ? "danger" : ""));
+  }
+
   // ---------- 규칙으로 채점 ----------
   function runScore() {
     var btn = $("score-btn"), btn2 = $("ai-score-btn");
-    var out = $("score-result");
+    var cond = $("rule-cond"), list = $("wrong-list");
     btn.disabled = true; btn2.disabled = true;
-    out.textContent = "채점 중…";
-    $("download-btn").hidden = true;
+    cond.textContent = "채점 중…";
+    list.textContent = "";
     loadJson("data/answer.json").then(function (answers) {
       var n = answers.length, wrong = [];
       var preds = answers.map(ruleFor);
@@ -178,33 +215,41 @@
         var cOk = p.category === a.category, uOk = p.urgency === a.urgency;
         if (!(cOk && uOk)) wrong.push({ a: a, p: p, cOk: cOk, uOk: uOk });
       });
-      out.textContent = "";
 
-      var sum = el("div", "card summary");
-      sum.appendChild(row("칸 정확도", s.cat + " / " + n + " (" + pct(s.cat, n) + ")"));
-      sum.appendChild(row("긴급도 정확도", s.urg + " / " + n + " (" + pct(s.urg, n) + ")"));
-      sum.appendChild(row("둘 다 맞은 수", s.both + " / " + n));
-      sum.appendChild(row("안전긴급을 다른 칸으로 놓친 수", String(s.safetyMiss)));
-      sum.appendChild(el("p", "cond",
-        "잰 조건: 규칙만 사용 · 정답 " + n + "개(data/answer.json) · 이름·전화번호·학번을 가린 문장으로 분류 · 낱말 keywords.json (version " + state.kw.version + ") · 한 번 잰 값"));
-      out.appendChild(sum);
+      renderStats("rule-stats", s);
+      $("rule-src").textContent = "낱말 keywords.json (version " + state.kw.version + ")";
+      cond.textContent =
+        "잰 조건: 규칙만 사용 · 정답 " + n + "개(data/answer.json) · 이름·전화번호·학번을 가린 문장으로 분류 · 낱말 keywords.json (version " + state.kw.version + ") · 한 번 잰 값";
+      btn.textContent = "다시 채점";
 
-      var box = el("div", "wrong");
-      box.appendChild(el("h3", null, "틀린 문장 " + wrong.length + "개 (정답 → 판정)"));
+      var h = el("h3", null, "규칙이 틀린 문장 " + wrong.length + "개");
+      h.appendChild(el("span", "small", "(정답 → 판정)"));
+      list.appendChild(h);
+      var grid = el("div", "wrong-grid");
       wrong.forEach(function (w) {
         var item = el("div", "item");
         item.appendChild(el("p", null, w.a.text));
-        var d = el("p", "diff");
-        d.appendChild(el("span", w.cOk ? "ok" : "bad", "칸 " + w.a.category + " → " + w.p.category));
-        d.appendChild(document.createTextNode("  ·  "));
-        d.appendChild(el("span", w.uOk ? "ok" : "bad", "긴급도 " + w.a.urgency + " → " + w.p.urgency));
+        var d = el("div", "diff");
+        function part(label, ok, a, p) {
+          var sp = el("span");
+          sp.appendChild(document.createTextNode(label + " "));
+          if (ok) { sp.appendChild(el("span", "ok", a)); }
+          else {
+            sp.appendChild(el("span", "ans", a));
+            sp.appendChild(document.createTextNode(" → "));
+            sp.appendChild(el("span", "bad", p));
+          }
+          return sp;
+        }
+        d.appendChild(part("칸", w.cOk, w.a.category, w.p.category));
+        d.appendChild(part("긴급도", w.uOk, w.a.urgency, w.p.urgency));
         if (w.a.note) d.appendChild(el("span", "tag", w.a.note));
         item.appendChild(d);
-        box.appendChild(item);
+        grid.appendChild(item);
       });
-      out.appendChild(box);
+      list.appendChild(grid);
     }).catch(function (e) {
-      out.textContent = "";
+      cond.textContent = "";
       showStatus(e.message);
     }).then(function () { btn.disabled = false; btn2.disabled = false; });
   }
@@ -212,9 +257,10 @@
   // ---------- AI로 채점 ----------
   function runAiScore() {
     var btn = $("score-btn"), btn2 = $("ai-score-btn"), dl = $("download-btn");
-    var out = $("score-result");
+    var out = $("ai-cond");
     btn.disabled = true; btn2.disabled = true; dl.hidden = true;
     showStatus("");
+    out.className = "cond";
     out.textContent = "AI 채점 중… 0/?";
     state.lastAi = null;
 
@@ -261,33 +307,18 @@
   }
 
   function renderCompare(rs, as, model, aiErrors) {
-    var out = $("score-result");
-    out.textContent = "";
     var n = rs.n;
-    var card = el("div", "card");
-    var table = el("table", "cmp");
-    var head = el("tr");
-    ["", "규칙", "AI"].forEach(function (h) { head.appendChild(el("th", null, h)); });
-    table.appendChild(head);
-    function add(label, r, a) {
-      var tr = el("tr");
-      tr.appendChild(el("th", null, label));
-      tr.appendChild(el("td", null, r));
-      tr.appendChild(el("td", null, a));
-      table.appendChild(tr);
-    }
-    add("칸 정확도", rs.cat + "/" + n + " (" + pct(rs.cat, n) + ")", as.cat + "/" + n + " (" + pct(as.cat, n) + ")");
-    add("긴급도 정확도", rs.urg + "/" + n + " (" + pct(rs.urg, n) + ")", as.urg + "/" + n + " (" + pct(as.urg, n) + ")");
-    add("둘 다 맞은 수", rs.both + "/" + n, as.both + "/" + n);
-    add("안전긴급 놓친 수", String(rs.safetyMiss), String(as.safetyMiss));
-    add("답을 못 받은 문장", "-", as.noAnswer + "건 (오답으로 셈)");
-    card.appendChild(table);
-    card.appendChild(el("p", "cond",
+    renderStats("rule-stats", rs);
+    renderStats("ai-stats", as);
+    var cond = $("ai-cond");
+    cond.className = "cond";
+    var text =
       "잰 조건: 같은 정답 " + n + "개(data/answer.json) · 가린 문장으로 분류 · AI는 10개씩 세 번 보냄 · 모델 " + (model || "응답 없음") +
-      " · 규칙 낱말 keywords.json (version " + state.kw.version + ") · 한 번 잰 값"));
+      " · 규칙 낱말 keywords.json (version " + state.kw.version + ") · 한 번 잰 값 · 답을 못 받은 문장 " + as.noAnswer + "건 (오답으로 셈)";
     var firstErr = aiErrors.filter(function (x) { return x; })[0];
-    if (firstErr) card.appendChild(el("p", "cond bad", "AI 실패 이유 예: " + firstErr));
-    out.appendChild(card);
+    if (firstErr) text += " · AI 실패 이유 예: " + firstErr;
+    cond.textContent = text;
+    if (firstErr) cond.className = "cond bad";
   }
 
   function buildDownload(answers, rulePreds, aiPreds, aiErrors, rs, as, model) {
@@ -327,6 +358,8 @@
 
   // ---------- 시작 ----------
   function init() {
+    renderStats("rule-stats", null);
+    renderStats("ai-stats", null);
     $("tab-classify").addEventListener("click", function () { selectTab("classify"); });
     $("tab-score").addEventListener("click", function () { selectTab("score"); });
     $("classify-form").addEventListener("submit", function (ev) {

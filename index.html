@@ -7,38 +7,73 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>파견 문의 분류기</h1>
-    <p class="sub">AI(Gemini)로 가르고, 실패하면 규칙으로 가른다</p>
+  <header class="top">
+    <div class="top-in">
+      <div class="brand">
+        <span class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 13.5 3 11l1.5-1.5 9 .5 4-4a1.8 1.8 0 0 1 2.6 2.6l-4 4 .5 9L15 21l-2.5-7.5-3 3 .3 2.7-1.3 1.3-1.6-3.4L3.5 16l1.3-1.3 2.7.3z"/></svg>
+        </span>
+        <div class="brand-text">
+          <h1>파견 문의 분류기</h1>
+          <p class="sub">AI(Gemini)로 가르고, 실패하면 규칙으로 가른다</p>
+        </div>
+      </div>
+      <nav class="tabs" role="tablist">
+        <button id="tab-classify" role="tab" aria-selected="true" aria-controls="panel-classify">분류</button>
+        <button id="tab-score" role="tab" aria-selected="false" aria-controls="panel-score">채점</button>
+      </nav>
+    </div>
   </header>
 
-  <nav class="tabs" role="tablist">
-    <button id="tab-classify" role="tab" aria-selected="true" aria-controls="panel-classify">분류</button>
-    <button id="tab-score" role="tab" aria-selected="false" aria-controls="panel-score">채점</button>
-  </nav>
+  <div class="strip" role="note">
+    <p><strong>연습용 화면입니다.</strong> 지어낸 문장으로 연습하는 분류기이며 입력한 문장은 저장되지 않습니다</p>
+  </div>
 
   <p id="status" class="status" hidden></p>
 
   <main>
     <section id="panel-classify" role="tabpanel" aria-labelledby="tab-classify">
-      <form id="classify-form">
-        <label for="q">문의 문장 한 줄</label>
-        <input id="q" type="text" autocomplete="off" placeholder="예: 면접이 내일인데 장소를 모르겠어요">
-        <button id="classify-btn" type="submit">분류</button>
-      </form>
-      <div id="result" hidden></div>
-      <details class="words">
-        <summary>규칙이 쓰는 낱말 (연습 문장에서 뽑음)</summary>
-        <div id="words"></div>
-      </details>
+      <div class="split">
+        <div class="pane">
+          <form id="classify-form">
+            <label for="q">문의 문장 한 줄</label>
+            <input id="q" type="text" autocomplete="off" placeholder="예: 면접이 내일인데 장소를 모르겠어요">
+            <button id="classify-btn" type="submit">분류</button>
+          </form>
+          <details class="words">
+            <summary>규칙이 쓰는 낱말 (연습 문장에서 뽑음)</summary>
+            <div id="words"></div>
+          </details>
+        </div>
+        <div class="out">
+          <div id="result" hidden></div>
+          <div class="empty">
+            <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.6 2.7 3.9 5.7 3.9 9s-1.3 6.3-3.9 9c-2.6-2.7-3.9-5.7-3.9-9S9.4 5.7 12 3z"/></svg>
+            <p>문장을 넣으면 여기에 결과가 나옵니다</p>
+            <p class="small">칸 · 긴급도 · 이유를 보여 드려요</p>
+          </div>
+        </div>
+      </div>
     </section>
 
     <section id="panel-score" role="tabpanel" aria-labelledby="tab-score" hidden>
       <p class="hint">정답 30개(data/answer.json)로 채점합니다. 단추를 누를 때만 정답 파일을 엽니다.</p>
-      <button id="score-btn" type="button">규칙으로 채점</button>
-      <button id="ai-score-btn" type="button">AI로 채점</button>
-      <button id="download-btn" type="button" class="secondary" hidden>AI 채점 결과 내려받기</button>
-      <div id="score-result"></div>
+      <div class="score-grid">
+        <section class="pane" aria-labelledby="rule-h">
+          <div class="pane-head"><h2 id="rule-h">규칙</h2><span class="small" id="rule-src"></span></div>
+          <div id="rule-stats" class="stats"></div>
+          <p id="rule-cond" class="cond"></p>
+          <button id="score-btn" type="button" class="primary">규칙으로 채점</button>
+        </section>
+        <section class="pane" aria-labelledby="ai-h">
+          <div class="pane-head"><h2 id="ai-h">AI</h2><span class="small">Gemini</span></div>
+          <div id="ai-stats" class="stats"></div>
+          <p id="ai-cond" class="cond"></p>
+          <button id="ai-score-btn" type="button" class="ghost">AI로 채점</button>
+          <button id="download-btn" type="button" class="secondary" hidden>AI 채점 결과 내려받기</button>
+        </section>
+      </div>
+      <div id="wrong-list"></div>
     </section>
   </main>
 
