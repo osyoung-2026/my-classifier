@@ -1,0 +1,422 @@
+[
+  {
+    "id": "S001",
+    "text": "환율이 올라서 지원금이 모자라요. 추가 지원이 있나요",
+    "category": "장학비용",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S002",
+    "text": "파견 중에 아프면 학교에 꼭 알려야 하나요?",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S003",
+    "text": "단체 항공권 같은 건 없나요",
+    "category": "출국준비",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S004",
+    "text": "귀국 날짜랑 기말시험이 겹치면 시험 조정되나요?",
+    "category": "학사",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S006",
+    "text": "공지 알림이 중복으로 계속 와서 불편해요",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S008",
+    "text": "사무실에 전화했는데 계속 통화중이에요",
+    "category": "기타",
+    "urgency": "보통",
+    "label_by": "AI"
+  },
+  {
+    "id": "S009",
+    "text": "복학 신청 마감이 오늘인데 아직 성적표가 안 와서 못 냈어요",
+    "category": "학사",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S011",
+    "text": "2학년도 지원할 수 있나요",
+    "category": "선발",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S012",
+    "text": "파견교 수강신청이 오늘 밤 12시에 닫는데 필수과목이 대기 번호예요",
+    "category": "학사",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S013",
+    "text": "파견 나간 학생들 대상 위기 대응 안내문이 있으면 받고 싶습니다.",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S014",
+    "text": "입학허가서가 아직 안 나왔는데 비자 인터뷰가 내일이에요 ㅠㅠ",
+    "category": "출국준비",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S016",
+    "text": "입학허가서는 파일로도 되나요",
+    "category": "출국준비",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S018",
+    "text": "노미네이션 이메일이 파견교에서 아직 안 왔다는데 언제쯤 보내나요?",
+    "category": "출국준비",
+    "urgency": "보통",
+    "label_by": "AI"
+  },
+  {
+    "id": "S021",
+    "text": "김하준입니다. 지원서 접수 확인 메일이 안 와서 확인 부탁드립니다.",
+    "category": "선발",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S022",
+    "text": "지원 자격에 어학 점수가 꼭 있어야 해요? 시험은 다음 달이라서요.",
+    "category": "선발",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S023",
+    "text": "파견 연장 신청서를 내일까지 파견교에 내야 한대요. 본교 확인서가 필요한데 오늘 받을 수 있나요?",
+    "category": "학사",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S025",
+    "text": "추천서는 담임교수님 말고 다른 교수님도 되나요",
+    "category": "선발",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S026",
+    "text": "현지 응급 연락처 정리된 문서가 있나요?",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S027",
+    "text": "복학하면 첫 학기 수강신청은 언제부터 가능해요?",
+    "category": "학사",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S028",
+    "text": "수강 정정 기간이 지났는데 한과목만 바꿀수있나요",
+    "category": "학사",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S029",
+    "text": "이서윤 학생이 오늘 오전부터 연락이 안 됩니다. 010-5550-0142로 걸어도 꺼져 있대요.",
+    "category": "안전긴급",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S030",
+    "text": "지원금 입금이 안 돼서 이번 주 월세를 못 내요. 오늘 안에 확인해 줄 수 있나요?",
+    "category": "장학비용",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S033",
+    "text": "안녕하세요 담당자님 수고 많으십니다 감사합니다",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S035",
+    "text": "출국이 모레인데 항공권 날짜가 잘못 예약된 것 같아요",
+    "category": "출국준비",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S036",
+    "text": "장학금 중복수혜 되나요",
+    "category": "장학비용",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S037",
+    "text": "등록금이 이중으로 빠져나갔어요 오늘 중으로 확인 부탁드립니다",
+    "category": "장학비용",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S038",
+    "text": "면접이 내일 오전 10시인데 장소 공지가 안 보여요",
+    "category": "선발",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S039",
+    "text": "비자 신청할 때 쓸 사진 규격이 어떻게 되나요?",
+    "category": "출국준비",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S042",
+    "text": "선발 결과 이의신청을 오늘까지 해야 한대요. 어디로 내나요?",
+    "category": "선발",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S043",
+    "text": "보험은 학교 단체보험이랑 개인보험 중 뭐가 나아요?",
+    "category": "출국준비",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S044",
+    "text": "교환학생 지원금 얼마 나와요?",
+    "category": "장학비용",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S047",
+    "text": "파견 중인 학생이 어젯밤 교통사고로 입원했다고 룸메이트가 연락했어요. 본인은 의식이 있는데 보호자가 한국에 있어요.",
+    "category": "안전긴급",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S049",
+    "text": "성적 우수 장학금도 교환 갔다오면 받을 수 있나요?",
+    "category": "장학비용",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S052",
+    "text": "보험 가입 증빙을 오늘까지 파견교에 내야 한대요.",
+    "category": "출국준비",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S055",
+    "text": "여권 유효기간이 5개월 남았는데 비자 신청 가능한가요",
+    "category": "출국준비",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S057",
+    "text": "생활비 지원 신청 양식 어디서 받아요",
+    "category": "장학비용",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S058",
+    "text": "휴학생도 지원 가능한가요??",
+    "category": "선발",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S059",
+    "text": "현지에서 들은 과목은 몇 학점까지 인정되는지 알려주세요",
+    "category": "학사",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S061",
+    "text": "버디 프로그램은 어디서 신청?",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S064",
+    "text": "선배 후기집 볼 수 있나요?",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S065",
+    "text": "어제 길에서 넘어져서 손목에 금이 갔대요. 깁스했고 수업은 일주일 쉬어야 할 것 같아요.",
+    "category": "안전긴급",
+    "urgency": "보통",
+    "label_by": "AI"
+  },
+  {
+    "id": "S066",
+    "text": "기숙사 옆 건물에 불이 났었는데 우리 건물은 괜찮아요. 일단 알려드려요.",
+    "category": "안전긴급",
+    "urgency": "보통",
+    "label_by": "AI"
+  },
+  {
+    "id": "S068",
+    "text": "여기 산불 연기가 심해서 대피 명령 떴어요 어떡하죠",
+    "category": "안전긴급",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S069",
+    "text": "파견교 배정 결과를 봤는데 희망 순위랑 달라요. 사유를 알 수 있나요?",
+    "category": "선발",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S070",
+    "text": "내일 아침 9시 면담이 아직 유효한지 확인하고 싶어요",
+    "category": "기타",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S071",
+    "text": "파견을 한 학기 일찍 끝내고 싶은데 어떻게 하나요",
+    "category": "학사",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S072",
+    "text": "지갑 잃어버려서 카드 정지는 했어요. 항공권 결제한 카드라 환불도 걱정돼요.",
+    "category": "안전긴급",
+    "urgency": "보통",
+    "label_by": "AI"
+  },
+  {
+    "id": "S073",
+    "text": "지원금 지급일이 몇 일인지 헷갈려요",
+    "category": "장학비용",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S075",
+    "text": "추천서 써주신 교수님이 오늘까지만 시스템 접속이 된다고 하세요. 제출 링크 다시 보내주세요.",
+    "category": "선발",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S076",
+    "text": "최서연 학생 입학허가서 우편 주소를 바꾸고싶어요. 연락처 010-5550-0377",
+    "category": "출국준비",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S078",
+    "text": "재난 문자 받는 앱 추천해주실 수 있어여?",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S079",
+    "text": "담당자 근무시간 알려주세요",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S080",
+    "text": "설문조사 링크가 안 열려요",
+    "category": "기타",
+    "urgency": "보통",
+    "label_by": "AI"
+  },
+  {
+    "id": "S081",
+    "text": "등록금 납부 마감이 오늘인데 계좌가 안 열려요",
+    "category": "장학비용",
+    "urgency": "높음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S082",
+    "text": "협정대학 목록은 어디서 봐요",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S084",
+    "text": "이번 학기 모집 공고는 언제 나와요?",
+    "category": "선발",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S086",
+    "text": "파견 취소했는데 등록금 환불은 언제 되나요",
+    "category": "장학비용",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S087",
+    "text": "파견 다녀온 선배랑 이야기해볼 수 있을까요?",
+    "category": "기타",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S088",
+    "text": "성적증명서 영문본은 귀국 후 받나요",
+    "category": "학사",
+    "urgency": "낮음",
+    "label_by": "AI"
+  },
+  {
+    "id": "S090",
+    "text": "전공필수 대체 인정 기준 알려주세요",
+    "category": "학사",
+    "urgency": "낮음",
+    "label_by": "AI"
+  }
+]

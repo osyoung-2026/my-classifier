@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>파견 문의 분류기</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>파견 문의 분류기</h1>
+    <p class="sub">AI(Gemini)로 가르고, 실패하면 규칙으로 가른다</p>
+  </header>
+
+  <nav class="tabs" role="tablist">
+    <button id="tab-classify" role="tab" aria-selected="true" aria-controls="panel-classify">분류</button>
+    <button id="tab-score" role="tab" aria-selected="false" aria-controls="panel-score">채점</button>
+  </nav>
+
+  <p id="status" class="status" hidden></p>
+
+  <main>
+    <section id="panel-classify" role="tabpanel" aria-labelledby="tab-classify">
+      <form id="classify-form">
+        <label for="q">문의 문장 한 줄</label>
+        <input id="q" type="text" autocomplete="off" placeholder="예: 면접이 내일인데 장소를 모르겠어요">
+        <button id="classify-btn" type="submit">분류</button>
+      </form>
+      <div id="result" hidden></div>
+      <details class="words">
+        <summary>규칙이 쓰는 낱말 (연습 문장에서 뽑음)</summary>
+        <div id="words"></div>
+      </details>
+    </section>
+
+    <section id="panel-score" role="tabpanel" aria-labelledby="tab-score" hidden>
+      <p class="hint">정답 30개(data/answer.json)로 채점합니다. 단추를 누를 때만 정답 파일을 엽니다.</p>
+      <button id="score-btn" type="button">규칙으로 채점</button>
+      <button id="ai-score-btn" type="button">AI로 채점</button>
+      <button id="download-btn" type="button" class="secondary" hidden>AI 채점 결과 내려받기</button>
+      <div id="score-result"></div>
+    </section>
+  </main>
+
+  <script src="mask.js"></script>
+  <script src="rules.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
