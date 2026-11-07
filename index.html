@@ -33,37 +33,19 @@
 
   <main>
     <section id="panel-classify" role="tabpanel" aria-labelledby="tab-classify">
-      <section class="pane guide" aria-labelledby="guide-h">
-        <h2 id="guide-h">이렇게 쓰는 도구예요</h2>
-        <p id="guide-owner" class="small"></p>
-        <p class="lead">국제교류과에 온 교환학생 파견 문의 한 줄을 넣으면, 담당 칸 + 긴급도 + 이유가 나옵니다.</p>
-        <p class="warn-strip" role="note">실제 학생 이름 · 학번 · 여권번호 · 연락처는 넣지 마세요</p>
-        <div class="guide-row">
-          <span class="guide-k">담당 칸</span>
-          <div id="cat-chips" class="chips"></div>
-        </div>
-        <div class="guide-row">
-          <span class="guide-k">긴급도</span>
-          <div id="urg-chips" class="chips"></div>
-        </div>
-        <div id="examples" class="guide-row" hidden>
-          <span class="guide-k">예시 문장 <span class="small">(누르면 입력 칸에 들어갑니다)</span></span>
-          <div id="example-chips" class="chips"></div>
-          <button id="example-btn" type="button" class="btn-sm">예시 문장 넣기</button>
-        </div>
-        <details class="defs">
-          <summary>칸과 긴급도의 뜻</summary>
-          <div id="defs"></div>
-        </details>
-      </section>
-
       <div class="split">
         <div class="pane">
           <form id="classify-form">
+            <p class="warn-strip" role="note">실제 학생 이름 · 학번 · 여권번호 · 연락처는 넣지 마세요</p>
             <label for="q">문의 문장 한 줄</label>
             <input id="q" type="text" autocomplete="off" placeholder="예: 면접이 내일인데 장소를 모르겠어요">
             <button id="classify-btn" type="submit">분류</button>
           </form>
+          <div id="examples" class="guide-row examples" hidden>
+            <span class="guide-k">예시 문장 <span class="small">(누르면 입력 칸에 들어갑니다)</span></span>
+            <div id="example-chips" class="chips"></div>
+            <button id="example-btn" type="button" class="btn-sm">예시 문장 넣기</button>
+          </div>
           <details class="words">
             <summary>규칙이 쓰는 낱말 (연습 문장에서 뽑음)</summary>
             <div id="words"></div>
@@ -78,6 +60,24 @@
           </div>
         </div>
       </div>
+
+      <details class="pane guide" id="guide">
+        <summary><span class="guide-title">이렇게 쓰는 도구예요</span></summary>
+        <p id="guide-owner" class="small"></p>
+        <p class="lead">국제교류과에 온 교환학생 파견 문의 한 줄을 넣으면, 담당 칸 + 긴급도 + 이유가 나옵니다.</p>
+        <div class="guide-row">
+          <span class="guide-k">담당 칸</span>
+          <div id="cat-chips" class="chips"></div>
+        </div>
+        <div class="guide-row">
+          <span class="guide-k">긴급도</span>
+          <div id="urg-chips" class="chips"></div>
+        </div>
+        <details class="defs">
+          <summary>칸과 긴급도의 뜻</summary>
+          <div id="defs"></div>
+        </details>
+      </details>
     </section>
 
     <section id="panel-score" role="tabpanel" aria-labelledby="tab-score" hidden>

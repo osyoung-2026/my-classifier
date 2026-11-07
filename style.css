@@ -12,6 +12,7 @@
   --band-2: #e3ab16;
   --tab-on: #2a2208;
   --tab-on-fg: #ffe9a0;
+  --glow: rgba(244, 196, 48, .45);
   --strip: #ffefb0;
   --strip-line: #e8cf6a;
   --accent: #2a2208;
@@ -31,6 +32,7 @@
     --card: #221c0d; --soft: #1b160a;
     --band: #e8b923; --band-ink: #261e05; --band-sub: #3f3209; --band-2: #cf9f12;
     --tab-on: #261e05; --tab-on-fg: #ffe9a0;
+    --glow: rgba(232, 185, 35, .35);
     --strip: #3a2f0a; --strip-line: #5e4d14;
     --accent: #f3ecd6; --on-accent: #1c1708;
     --bad: #ff8a80; --bad-bg: #3d1c1f; --bad-line: #75343a;
@@ -188,8 +190,14 @@ button:disabled { opacity: .5; cursor: default; }
 }
 
 /* ---------- 사용 안내 ---------- */
-.guide { margin-bottom: 16px; }
-.guide h2 { margin: 0; font-size: 1.1rem; }
+.guide { margin-top: 16px; padding-top: 12px; padding-bottom: 12px; }
+.guide > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 8px; }
+.guide > summary::-webkit-details-marker { display: none; }
+.guide > summary::after { content: "▶"; font-size: .8rem; color: var(--muted); transition: transform .15s; }
+.guide[open] > summary::after { transform: rotate(90deg); }
+.guide[open] > summary { margin-bottom: 8px; }
+.guide > summary:focus-visible { outline: 2px solid var(--fg); outline-offset: 4px; border-radius: 6px; }
+.guide-title { font-size: 1.1rem; font-weight: 700; }
 .guide .small { margin: 2px 0 0; }
 .guide .lead { margin: 10px 0 12px; }
 .warn-strip {
@@ -225,3 +233,14 @@ button.chip.ex:focus-visible, .btn-sm:focus-visible { outline: 2px solid var(--f
 .defs .rules { margin: 0; padding-left: 20px; font-size: .9rem; }
 .defs .rules li { margin-bottom: 4px; }
 .defs .small { margin: 6px 0 0; }
+
+/* ---------- 입력 칸 강조 ---------- */
+#q {
+  border: 2px solid var(--band-2); padding: 11px 12px; font-size: 1.05rem;
+  box-shadow: 0 0 0 4px var(--glow);
+}
+#q:focus-visible { outline: 2px solid var(--fg); outline-offset: 1px; }
+#classify-form label { margin-top: 2px; }
+
+/* 예시 문장: 분류 단추 바로 아래 */
+.examples { margin: 14px 0 0; }
